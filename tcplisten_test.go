@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net"
+	"runtime"
 	"testing"
 	"time"
 )
@@ -37,14 +38,14 @@ func TestConfigBacklog(t *testing.T) {
 }
 
 func testConfig(t *testing.T, cfg Config) {
-	testConfigV(t, cfg, "tcp4", "localhost:10081")
-	testConfigV(t, cfg, "tcp6", "ip6-localhost:10081")
+	testConfigV(t, cfg, "tcp4", ":10081")
+	testConfigV(t, cfg, "tcp6", ":10081")
 }
 
 func testConfigV(t *testing.T, cfg Config, network, addr string) {
 	const requestsCount = 1000
 	var serversCount = 1
-	if cfg.ReusePort {
+	if cfg.ReusePort && runtime.GOOS != "windows" {
 		serversCount = 10
 	}
 	doneCh := make(chan struct{}, serversCount)
