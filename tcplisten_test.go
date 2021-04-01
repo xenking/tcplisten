@@ -62,7 +62,7 @@ func testConfigV(t *testing.T, cfg Config, network, addr string) {
 
 	var lns []net.Listener
 	for i := 0; i < serversCount; i++ {
-		ln, err := cfg.NewListener(network, addr)
+		ln, err := NewListener(network, addr, cfg)
 		if err != nil {
 			t.Fatalf("cannot create listener %d using Config %#v: %s", i, &cfg, err)
 		}
