@@ -37,6 +37,13 @@ func enableNoDelay(fd int) error {
 	return nil
 }
 
+func enableQuickAck(fd int) error {
+	if err := syscall.SetsockoptInt(fd, syscall.IPPROTO_TCP, syscall.TCP_QUICKACK, 1); err != nil {
+		return fmt.Errorf("cannot enable TCP_QUICKACK: %s", err)
+	}
+	return nil
+}
+
 const fastOpenQlen = 16 * 1024
 
 func soMaxConn() (int, error) {

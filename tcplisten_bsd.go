@@ -22,6 +22,10 @@ func enableNoDelay(fd int) error {
 	return nil
 }
 
+func enableQuickAck(fd int) error {
+	return nil
+}
+
 func soMaxConn() (int, error) {
 	// TODO: properly implement it
 	return syscall.SOMAXCONN, nil

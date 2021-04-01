@@ -15,6 +15,11 @@
 //   - TCP_NODELAY. This option is intended to disable/enable segment buffering so data can be sent out to peer
 //     as quickly as possible, so this is typically used to improve network utilization.
 //
+//   - TCP_QUICKACK. This option allows sending out acknowledgments as early as possible than delayed
+//     under some protocol level exchanging, and it's not stable/permanent, subsequent TCP transactions
+//     (which may happen under the hood) can disregard this option depending on actual protocol level processing
+//     or any actual disagreements between user setting and stack behavior.
+//
 // The package is derived from https://github.com/kavu/go_reuseport .
 package tcplisten
 
@@ -39,6 +44,9 @@ type Config struct {
 
 	// NoDelay enables TCP_NODELAY.
 	NoDelay bool
+
+	// QuickACK enables TCP_QUICKACK.
+	QuickACK bool
 
 	// Backlog is the maximum number of pending TCP connections the listener
 	// may queue before passing them to Accept.
@@ -119,6 +127,12 @@ func (cfg *Config) fdSetup(fd int, sa syscall.Sockaddr, addr string) error {
 
 	if cfg.NoDelay {
 		if err = enableNoDelay(fd); err != nil {
+			return err
+		}
+	}
+
+	if cfg.QuickACK {
+		if err = enableQuickAck(fd); err != nil {
 			return err
 		}
 	}
