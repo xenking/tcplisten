@@ -12,6 +12,9 @@
 //
 //   - TCP_FASTOPEN. See https://lwn.net/Articles/508865/ for details.
 //
+//   - TCP_NODELAY. This option is intended to disable/enable segment buffering so data can be sent out to peer
+//     as quickly as possible, so this is typically used to improve network utilization.
+//
 // The package is derived from https://github.com/kavu/go_reuseport .
 package tcplisten
 
@@ -33,6 +36,9 @@ type Config struct {
 
 	// FastOpen enables TCP_FASTOPEN.
 	FastOpen bool
+
+	// NoDelay enables TCP_NODELAY.
+	NoDelay bool
 
 	// Backlog is the maximum number of pending TCP connections the listener
 	// may queue before passing them to Accept.
@@ -107,6 +113,12 @@ func (cfg *Config) fdSetup(fd int, sa syscall.Sockaddr, addr string) error {
 
 	if cfg.FastOpen {
 		if err = enableFastOpen(fd); err != nil {
+			return err
+		}
+	}
+
+	if cfg.NoDelay {
+		if err = enableNoDelay(fd); err != nil {
 			return err
 		}
 	}

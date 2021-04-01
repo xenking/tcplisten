@@ -21,11 +21,16 @@ func TestConfigFastOpen(t *testing.T) {
 	testConfig(t, Config{FastOpen: true})
 }
 
+func TestConfigNoDelay(t *testing.T) {
+	testConfig(t, Config{NoDelay: true})
+}
+
 func TestConfigAll(t *testing.T) {
 	cfg := Config{
 		ReusePort:   true,
 		DeferAccept: true,
 		FastOpen:    true,
+		NoDelay:     true,
 	}
 	testConfig(t, cfg)
 }

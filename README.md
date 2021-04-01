@@ -14,7 +14,9 @@ performance-related options:
    connection before writing to them.
 
  * TCP_FASTOPEN. See https://lwn.net/Articles/508865/ for details.
-
+    
+ * TCP_NODELAY. This option is intended to disable/enable segment buffering so data can be sent out to peer
+   as quickly as possible, so this is typically used to improve network utilization.
 
 [Documentation](https://godoc.org/github.com/valyala/tcplisten).
 
