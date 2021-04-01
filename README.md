@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/valyala/tcplisten.svg)](https://travis-ci.org/valyala/tcplisten)
-[![GoDoc](https://godoc.org/github.com/valyala/tcplisten?status.svg)](http://godoc.org/github.com/valyala/tcplisten)
-[![Go Report](https://goreportcard.com/badge/github.com/valyala/tcplisten)](https://goreportcard.com/report/github.com/valyala/tcplisten)
+[![Build Status](https://travis-ci.org/xenking/tcplisten.svg)](https://travis-ci.org/xenking/tcplisten)
+[![Go Reference](https://pkg.go.dev/badge/github.com/xenking/tcplisten.svg)](https://pkg.go.dev/github.com/xenking/tcplisten)
+[![Go Report](https://goreportcard.com/badge/github.com/xenking/tcplisten)](https://goreportcard.com/report/github.com/xenking/tcplisten)
 
 
 Package tcplisten provides customizable TCP net.Listener with various
@@ -23,5 +23,6 @@ performance-related options:
    (which may happen under the hood) can disregard this option depending on actual protocol level processing
    or any actual disagreements between user setting and stack behavior.
 
+[Documentation](https://pkg.go.dev/github.com/xenking/tcplisten).
 
 The package is derived from [go_reuseport](https://github.com/kavu/go_reuseport).
